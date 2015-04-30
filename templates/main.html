@@ -1,0 +1,44 @@
+{% load staticfiles %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+	<title>{{article.article_title}}</title>
+	<link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style>
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+</head>
+<body >
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="brand">Smaroff.ru</div>
+            <ul class="nav">
+                <li><a href="{% url 'list' %}" class="">Список постов</a></li>
+                <li><a href="{% url 'about' %}" class="">О нас</a></li>
+            </ul>
+
+            <ul class="nav2">
+                {% if username %}
+                    <li><a href="/auth/logout/">Выйти({{ username }})</a></li>
+                {% else %}
+                    <li><a href="/auth/login/">Войти</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+     {% block Article%}
+     {%endblock%}
+        {% block login %}
+        {% endblock %}
+</div> <!-- container -->
+
+</body>
+</html>

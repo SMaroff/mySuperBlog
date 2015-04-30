@@ -1,0 +1,31 @@
+{% extends 'main.html'%}
+{% load staticfiles %}
+ {%block Article%}
+
+
+<h2>{{article.article_title}}</h2>
+<p>{{article.article_text}}</p>
+<p><a href="/articles/addlike/{{ article.id }}/"><img src="{% static "like.png" %}" width="25px" height="25px"></a> {{article.article_likes}}</p>
+     <h6>Дата публикации: {{article.article_date}}</h6>
+<hr>
+
+<p>Комментарии:</p>
+{% for comment in comments%}
+<table border="0.5" bgcolor="#996" class="table">
+
+<th><font color="green">{{username}}:</font> {{comment.comments_text}}</th>
+</table>
+{% endfor%}
+     {% if username %}
+    <Div class='form-actions span5'>
+     <form action="/articles/addcom/{{article.id}}/" method="Post" class="span6" style="">
+     {% csrf_token %}
+     {{ form }}
+    <br><input type="submit" class="btn" value="Add comment">
+    </form>
+    {% else %}
+    <p>Для добавления комментариев нужно зарегистрироваться!</p>
+         <br>
+    {% endif %}
+</Div>
+{%endblock%}
